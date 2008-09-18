@@ -1,7 +1,7 @@
 <?php
 function removeTree($dir, $removeCurrent = false) {
-    if ( $dirHandle = opendir($dir) ) {
-        while ( $file = readdir($dirHandle) ) {
+    if ( ($dirHandle = opendir($dir)) !== false ) {
+        while ( ($file = readdir($dirHandle)) !== false ) {
             if ( $file !== "." && $file !== ".." ) {
                 if ( is_dir($dir."/".$file) ) {
                     removeTree($dir."/".$file, true);
@@ -39,9 +39,9 @@ function copyDir($src, $desc, $secondLevel = false) {
         echo "$desc is not a directory or not writable!\n";
         exit;
     }
-    if ( $dirHandle = opendir($src) ) {
+    if ( ($dirHandle = opendir($src)) !== false ) {
         $ignoreList = $secondLevel ? $IGNORE_SECOND_LEVEL : $IGNORE_FIRST_LEVEL;
-        while ( $file = readdir($dirHandle) ) {
+        while ( ($file = readdir($dirHandle)) !== false ) {
             $ignore = false;
             foreach ( $ignoreList as $pattern ) {
                 if ( fnmatch($pattern, $file) ) {
